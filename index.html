@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>山本募金</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #fef9c3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .amount {
+      font-size: 1.8rem;
+      font-family: monospace;
+    }
+    .message {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #22c55e;
+      color: white;
+      font-size: 1.2rem;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <h1>山本募金</h1>
+  <p>現在の募金額：<span id="amount" class="amount">¥0</span></p>
+  <p id="message" class="message">山本さん「…」</p>
+  <button onclick="donate()">募金する 💸</button>
+
+  <script>
+    let amount = parseInt(localStorage.getItem('yamamotoFund')) || 0;
+    const amountElem = document.getElementById('amount');
+    const messageElem = document.getElementById('message');
+
+    const updateUI = () => {
+      amountElem.textContent = `¥${amount}`;
+      if (amount >= 10000) {
+        messageElem.textContent = '山本さん「まじでありがとう…これで治るわ」';
+      } else if (amount >= 1000) {
+        messageElem.textContent = '山本さん「新作のショーツかうわ」';
+      } else if (amount >= 100) {
+        messageElem.textContent = '山本さん「君がいいならいいんじゃない？」';
+      } else if (amount >= 10) {
+        messageElem.textContent = '山本さん「え、俺の人生にかかわりすぎ」';
+      } else {
+        messageElem.textContent = '山本さん「おね」';
+      }
+    };
+
+    const donate = () => {
+      amount++;
+      localStorage.setItem('yamamotoFund', amount);
+      updateUI();
+    };
+
+    updateUI();
+  </script>
+</body>
+</html>
